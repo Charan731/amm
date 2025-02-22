@@ -6,38 +6,39 @@
     <title>Pay ₹1 to See Balance</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #f8c8d6;
-            margin: 0;
-            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             flex-direction: column;
+            padding: 20px;
+            text-align: center;
         }
         .container {
-            text-align: center;
             background-color: white;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 30px;
-            width: 80%;
+            width: 100%;
             max-width: 500px;
         }
         h1 {
             color: #d14377;
-            font-size: 2rem;
+            font-size: 1.8rem;
             margin-bottom: 20px;
         }
         .points {
             text-align: left;
-            margin-bottom: 30px;
-            font-size: 1.2rem;
-        }
-        .point {
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
         }
         .btn {
             background-color: #4CAF50;
@@ -48,54 +49,63 @@
             border-radius: 5px;
             cursor: pointer;
             transition: 0.3s;
+            width: 100%;
         }
         .btn:hover {
             background-color: #45a049;
         }
         .balance-box {
-            display: block;
             margin-top: 20px;
             font-size: 1.5rem;
             color: #4CAF50;
             border: 2px solid #4CAF50;
             border-radius: 10px;
             padding: 10px;
-            width: fit-content;
-            margin-left: auto;
-            margin-right: auto;
+            display: inline-block;
         }
         .icons {
             display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
+            justify-content: space-around;
+            margin-top: 20px;
         }
         .icon {
-            font-size: 1.5rem;
-            cursor: pointer;
+            font-size: 1rem;
             text-decoration: none;
             color: #4CAF50;
+            font-weight: bold;
         }
         .signature {
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
+            margin-top: 10px;
             font-size: 1rem;
             font-weight: bold;
             color: #4CAF50;
         }
         .footer-links {
             margin-top: 20px;
-            text-align: center;
-            font-size: 1rem;
+            font-size: 0.9rem;
         }
         .footer-links a {
             color: #4CAF50;
             text-decoration: none;
-            margin: 0 10px;
+            margin: 0 5px;
             font-weight: 600;
         }
         .footer-links a:hover {
             text-decoration: underline;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            .btn {
+                font-size: 1rem;
+            }
+            .balance-box {
+                font-size: 1.2rem;
+            }
+            .icon {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -105,10 +115,10 @@
     <h1>Pay ₹1 to See How Many Rupees in This Account</h1>
 
     <div class="points">
-        <div class="point">1. Click the green button below</div>
-        <div class="point">2. Pay ₹1</div>
-        <div class="point">3. See the Count</div>
-        <div class="point">4. Share it with Your Friends</div>
+        <div>1. Click the green button below</div>
+        <div>2. Pay ₹1</div>
+        <div>3. See the Count</div>
+        <div>4. Share it with Your Friends</div>
     </div>
 
     <button class="btn" onclick="payRupee()">Pay ₹1</button>
@@ -126,7 +136,9 @@
     <div class="footer-links">
         <a href="https://contact-r1fk.onrender.com" target="_blank">Contact Us</a> |
         <a href="https://terms-conditions.onrender.com" target="_blank">Terms & Conditions</a> |
-        <a href="https://policys-cakx.onrender.com" target="_blank">Refund Policy</a>
+        <a href="https://policys-cakx.onrender.com" target="_blank">Refund Policy</a> |
+        <a href="https://privacy-policy-rog4.onrender.com" target="_blank">Privacy Policy</a> |
+        <a href="https://shipping-ne6p.onrender.com" target="_blank">Shipping Policy</a>
     </div>
 </div>
 
@@ -136,22 +148,17 @@
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
-    // Load balance from local storage or set to 0 if not present
     let balance = parseInt(localStorage.getItem('balance')) || 0;
-
-    // Show Hidden by default
     document.getElementById('balance').innerText = "Balance: Hidden";
 
     function payRupee() {
         var options = {
             "key": "rzp_test_4XzgmPZdCxTkEX", 
-            "amount": "100", 
+            "amount": "100",
             "currency": "INR",
             "name": "Charan's Account",
             "description": "Pay ₹1 to see your balance",
-            "image": "https://example.com/logo.png",
             "handler": function (response) {
-                // Increase balance only after successful payment
                 balance += 1;
                 localStorage.setItem('balance', balance);
                 document.getElementById('balance').innerText = "Balance: ₹" + balance;
